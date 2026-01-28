@@ -489,3 +489,176 @@ export default Root;
 - Result → Book Vibe project এ modular, reusable, responsive layout।
 
 
+===============================
+47-4 Load Book Details Page and Display
+===============================
+
+🎯 Cue (কী-ওয়ার্ড / প্রশ্ন)
+- React এ book details কীভাবে load করা যায়?
+- useLoaderData এবং loader function এর কাজ কী?
+- Suspense fallback কীভাবে কাজ করে?
+- প্রতিটি line of code কী করছে?
+
+📝 Notes (Detailed Information)
+
+1. Books.jsx
+👉 Full Code:
+import React, { Suspense } from 'react';
+import Book from '../Book/Book';
+
+const Books = ({data}) => {
+    return (
+        <div>
+            <h1 className='text-3xl text-center p-6'>Books</h1>
+            <Suspense fallback={<span>Loading....</span>}>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                    {
+                        data.map((singleBook) =>
+                          <Book key={singleBook.bookId} singleBook={singleBook}></Book>
+                        )
+                    }
+                </div>
+            </Suspense>
+        </div>
+    );
+};
+
+export default Books;
+
+📌 Line by Line:
+- `Suspense fallback={<span>Loading....</span>}` → data load হওয়ার সময় loading message দেখাবে।
+- `data.map(...)` → প্রতিটি book object কে Book component এ পাঠানো হচ্ছে।
+- `key={singleBook.bookId}` → unique key React rendering এর জন্য।
+- `singleBook={singleBook}` → Book component এ prop হিসেবে পাঠানো হচ্ছে।
+
+---
+
+2. Book.jsx
+👉 Full Code:
+import React from 'react';
+
+const Book = ({singleBook}) => {
+    console.log(singleBook);
+
+    // destructuring
+    const {bookName, author, image, review} = singleBook;
+
+    return (
+       <div className="card bg-base-100 w-96 shadow-sm">
+          <figure className='p-3'>
+            <img src={image} alt={bookName} />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">
+              {bookName}
+              <div className="badge badge-secondary">NEW</div>
+            </h2>
+            <p>{review}</p>
+            <div className="card-actions justify-end">
+              <div className="badge badge-outline">Fashion</div>
+              <div className="badge badge-outline">Products</div>
+            </div>
+          </div>
+       </div>
+    );
+};
+
+export default Book;
+
+📌 Line by Line:
+- `const {bookName, author, image, review}` → singleBook object থেকে property বের করছে।
+- `<img src={image} alt={bookName} />` → book image দেখাচ্ছে।
+- `<h2>{bookName}</h2>` → book name দেখাচ্ছে।
+- `<p>{review}</p>` → book review দেখাচ্ছে।
+- Badge → extra UI styling।
+
+---
+
+3. Routes.jsx
+👉 Full Code:
+import React from 'react';
+import { createBrowserRouter } from "react-router";
+import Root from '../components/pages/Root/Root';
+import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
+import Home from '../components/pages/Home/Home';
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    errorElement: <ErrorPage></ErrorPage>, // ulta palta url a gele ata dekhabe
+    children: [
+        {
+            index: true,
+            loader: ()=>fetch('booksData.json'),
+            path: "/",
+            Component: Home,
+        },
+    ]
+},
+]);
+
+📌 Line by Line:
+- `createBrowserRouter` → route তৈরি করছে।
+- `Component: Root` → root layout।
+- `errorElement` → ভুল URL এ error page দেখাবে।
+- `loader: ()=>fetch('booksData.json')` → route load হওয়ার সময় booksData.json fetch করবে।
+- `Component: Home` → Home page render করবে।
+
+---
+
+4. Home.jsx
+👉 Full Code:
+import React from 'react';
+import Banner from '../../Banner/Banner';
+import { Helmet } from 'react-helmet-async';
+import Books from '../Books/Books';
+import { useLoaderData } from 'react-router';
+
+const Home = () => {
+    const data = useLoaderData();
+    console.log(data); // (9) [{…}, {…}, ...]
+    return (
+        <div>
+            <Helmet>
+                <title>Boi Poka | Home</title>
+            </Helmet>
+            <Banner></Banner>
+            <Books data={data}></Books>
+        </div>
+    );
+};
+
+export default Home;
+
+📌 Line by Line:
+- `useLoaderData()` → loader থেকে আসা data access করছে।
+- `console.log(data)` → console এ books array দেখা যাবে।
+- `<Helmet>` → page title dynamically set করছে।
+- `<Banner>` → top banner render করছে।
+- `<Books data={data}>` → Books component এ data পাঠাচ্ছে।
+
+---
+
+✅ Output (Example)
+- Home page → Banner + Books grid।
+- Books → সব book card আকারে দেখাবে।
+- Loader → booksData.json থেকে data fetch করবে।
+- Suspense → loading fallback দেখাবে।
+
+---
+
+✅ Advantages
+- Loader → route level এ data fetch করে।
+- useLoaderData → সহজে data access করা যায়।
+- Suspense → loading state handle করে।
+- Component based → clean এবং reusable structure।
+
+---
+
+📌 Summary
+- Books.jsx → Suspense + map দিয়ে book list render।
+- Book.jsx → single book details card আকারে দেখায়।
+- Routes.jsx → loader দিয়ে booksData.json fetch করে।
+- Home.jsx → Banner + Books একসাথে render করে।
+- Result → React project এ book details page load এবং display হলো।
