@@ -1,0 +1,491 @@
+===============================
+Module 47: Journey Through React Router with Book Vibe
+===============================
+
+🎯 Cue (কী-ওয়ার্ড / প্রশ্ন)
+- React Router কীভাবে সেটাপ করতে হয়?
+- createBrowserRouter কোথায় ব্যবহার হয়?
+- RouterProvider এর কাজ কী?
+- Route এর মধ্যে path এবং element prop কীভাবে কাজ করে?
+- প্রতিটি line of code কী করছে?
+
+📝 Notes (বিস্তারিত তথ্য)
+
+1. Install React Router
+👉 Command:
+npm install react-router-dom
+
+📌 Explanation:
+- react-router-dom → React এর জন্য routing library।
+- Single Page Application (SPA) এ multiple pages এর মতো navigation তৈরি করতে সাহায্য করে।
+
+---
+
+2. App.js Setup
+👉 Full Code:
+import React from 'react';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+} from 'react-router-dom';
+
+import Home from './pages/Home';
+import About from './pages/About';
+import Books from './pages/Books';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '/about',
+    element: <About />,
+  },
+  {
+    path: '/books',
+    element: <Books />,
+  },
+]);
+
+function App() {
+  return (
+    <RouterProvider router={router}></RouterProvider>
+  );
+}
+
+export default App;
+
+---
+
+3. Explanation (Line by Line)
+- `import { createBrowserRouter, RouterProvider, Route }` → React Router এর core functions import করা হয়েছে।
+- `import Home, About, Books` → আলাদা আলাদা page component import করা হয়েছে।
+- `const router = createBrowserRouter([...])` → browser router তৈরি করা হয়েছে, এর মধ্যে route configuration দেওয়া হয়েছে।
+- `{ path: '/', element: <Home /> }` → root path `/` এ Home component render হবে।
+- `{ path: '/about', element: <About /> }` → `/about` path এ About component render হবে।
+- `{ path: '/books', element: <Books /> }` → `/books` path এ Books component render হবে।
+- `function App() { return <RouterProvider router={router} /> }` → RouterProvider এর মাধ্যমে router পুরো app এ supply করা হয়েছে।
+- `export default App;` → App component export করা হয়েছে।
+
+---
+
+4. Five Steps Summary
+1️⃣ createBrowserRouter → App.js এ router তৈরি করা।  
+2️⃣ RouterProvider → router কে app এ supply করা।  
+3️⃣ Route → প্রতিটি route define করা।  
+4️⃣ path → কোন URL এ কোন component দেখাবে তা নির্ধারণ করা।  
+5️⃣ element → সেই path এ কোন component render হবে তা সেট করা।  
+
+---
+
+✅ Output (Example)
+- `/` → Home page render হবে।
+- `/about` → About page render হবে।
+- `/books` → Books page render হবে।
+- Navigation → SPA এর মতো কাজ করবে, reload ছাড়াই page change হবে।
+
+---
+
+✅ Advantages
+- React Router → SPA এ multiple page navigation সহজ করে।
+- createBrowserRouter → declarative route configuration।
+- RouterProvider → পুরো app এ router context supply করে।
+- path + element → সহজে কোন component কোন URL এ দেখাবে তা নির্ধারণ করা যায়।
+- Modular → আলাদা আলাদা page component ব্যবহার করা যায়।
+
+---
+
+📌 Summary
+- React Router setup → মাত্র পাঁচটি স্টেপ।
+- createBrowserRouter → route configuration।
+- RouterProvider → app এ router supply।
+- Route → path এবং element দিয়ে navigation তৈরি।
+- Result → Book Vibe project এ dynamic, responsive routing system।
+
+
+===============================
+47-1 Project Setup with React Router, Tailwind and Daisy UI
+===============================
+
+🎯 Cue (কী-ওয়ার্ড / প্রশ্ন)
+- React project setup কীভাবে করতে হয়?
+- Tailwind এবং DaisyUI কীভাবে install ও configure করতে হয়?
+- React Router কীভাবে install ও setup করতে হয়?
+- main.jsx এ createBrowserRouter এবং RouterProvider এর কাজ কী?
+- প্রতিটি line of code কী করছে?
+
+📝 Notes (বিস্তারিত তথ্য)
+
+1. Git Resources
+👉 Command:
+git clone https://github.com/ProgrammingHero1/B11-boi-poka-Book-Vibe-Resources.git
+
+📌 Explanation:
+- Resources repo → project assets, starter files, এবং configuration scripts পাওয়া যাবে।
+
+---
+
+2. Create React App with Vite
+👉 Command:
+npm create vite@latest book-vibe
+
+📌 Explanation:
+- Vite → fast build tool for React projects।
+- Project name → book-vibe।
+- এরপর dependencies install করতে হবে → npm install।
+
+---
+
+3. Tailwind Setup
+👉 Command:
+npm install -D tailwindcss postcss autoprefixer  
+npx tailwindcss init -p
+
+📌 Explanation:
+- Tailwind → utility-first CSS framework।
+- tailwind.config.js → configure করতে হবে।
+- index.css এ Tailwind directives যোগ করতে হবে:
+  @tailwind base;  
+  @tailwind components;  
+  @tailwind utilities;
+
+---
+
+4. DaisyUI Setup
+👉 Command:
+npm install daisyui
+
+📌 Explanation:
+- DaisyUI → Tailwind এর উপর ভিত্তি করে তৈরি UI component library।
+- tailwind.config.js এ plugin হিসেবে যোগ করতে হবে:
+  plugins: [require("daisyui")]
+
+---
+
+5. React Router Setup
+👉 Command:
+npm i react-router
+
+📌 Explanation:
+- React Router → SPA navigation এর জন্য।
+- createBrowserRouter এবং RouterProvider ব্যবহার করে routes configure করা হয়।
+
+---
+
+6. main.jsx
+👉 Full Code:
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router/dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>Hello World</div>,
+  },
+]);
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+)
+
+---
+
+7. Explanation (Line by Line)
+- `import { StrictMode } from 'react'` → React StrictMode app এর potential issues detect করে।
+- `import { createRoot } from 'react-dom/client'` → React 18 এর জন্য root তৈরি করা হয়।
+- `import './index.css'` → Tailwind এবং custom CSS import করা হয়েছে।
+- `import App from './App.jsx'` → App component import করা হয়েছে (future use)।
+- `import { createBrowserRouter } from "react-router"` → browser router তৈরি করার জন্য function import।
+- `import { RouterProvider } from "react-router/dom"` → router কে পুরো app এ supply করার জন্য provider।
+- `const router = createBrowserRouter([...])` → route configuration দেওয়া হয়েছে।
+- `{ path: "/", element: <div>Hello World</div> }` → root path `/` এ simple element render হবে।
+- `createRoot(document.getElementById('root')).render(...)` → React app DOM এ attach করা হচ্ছে।
+- `<StrictMode>` → development mode এ warning detect করবে।
+- `<RouterProvider router={router} />` → router context app এ supply করছে।
+
+---
+
+✅ Output (Example)
+- Project setup → vite + tailwind + daisyUI + react-router।
+- Root path `/` → "Hello World" render হবে।
+- Future এ multiple routes এবং UI components যোগ করা যাবে।
+
+---
+
+✅ Advantages
+- Vite → fast build and hot reload।
+- Tailwind → utility-first CSS, দ্রুত styling।
+- DaisyUI → ready-made UI components।
+- React Router → SPA navigation সহজ করে।
+- Modular setup → future scaling সহজ হবে।
+
+---
+
+📌 Summary
+- Project setup → vite দিয়ে React app তৈরি।
+- Tailwind + DaisyUI → styling এবং UI components।
+- React Router → navigation system।
+- main.jsx → createBrowserRouter এবং RouterProvider দিয়ে route configure।
+- Result → Book Vibe project এর জন্য modern, scalable setup।
+
+
+
+===============================
+47-2 Create Navbar for Book Vibe and Others
+===============================
+
+🎯 Cue (কী-ওয়ার্ড / প্রশ্ন)
+- React Router configuration আলাদা component এ রাখবো কীভাবে?
+- DaisyUI responsive Navbar কীভাবে ব্যবহার ও modify করা যায়?
+- DaisyUI Footer কীভাবে ব্যবহার ও modify করা যায়?
+- Root component এ Navbar, Footer এবং Outlet কীভাবে একসাথে কাজ করে?
+- প্রতিটি line of code কী করছে?
+
+📝 Notes (বিস্তারিত তথ্য)
+
+1. main.jsx
+👉 Full Code:
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import { RouterProvider } from "react-router/dom";
+import { router } from './Routes/Routes.jsx';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+)
+
+📌 Explanation (Line by Line):
+- `StrictMode` → development mode এ warning detect করে।
+- `createRoot` → React 18 এর জন্য root তৈরি।
+- `RouterProvider router={router}` → router context পুরো app এ supply করছে।
+- `router` → আলাদা Routes.jsx এ define করা হয়েছে।
+
+---
+
+2. Routes.jsx
+👉 Full Code:
+import React from 'react';
+import { createBrowserRouter } from "react-router";
+import Root from '../components/pages/Root/Root';
+import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
+import Home from '../components/pages/Home/Home';
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    errorElement: <ErrorPage></ErrorPage>, // ulta palta url a gele ata dekhabe
+    children: [
+        {
+            index: true,
+            path: "/",
+            Component: Home,
+        }
+    ]
+},
+]);
+
+📌 Explanation (Line by Line):
+- `createBrowserRouter([...])` → route configuration।
+- `Component: Root` → Root component সব route এর parent।
+- `errorElement: <ErrorPage>` → invalid URL এ ErrorPage দেখাবে।
+- `children` → nested routes।
+- `index: true` → default route `/` এ Home component render হবে।
+
+---
+
+3. Navbar.jsx
+👉 Full Code:
+import React from 'react';
+
+const Navbar = () => {
+    const links = <>
+      <li className='m-2'>Home</li>
+      <li className='m-2'>About</li>
+    </>
+    return (
+        <div className="navbar bg-base-100 shadow-sm">
+          <div className="navbar-start">
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" 
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                    d="M4 6h16M4 12h8m-8 6h16" /> 
+                </svg>
+              </div>
+              <ul tabIndex="-1" className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                {links}
+              </ul>
+            </div>
+            <a className="btn btn-ghost text-xl">daisyUI</a>
+          </div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">
+              {links}
+            </ul>
+          </div>
+          <div className="navbar-end">
+            <a className="btn">Button</a>
+          </div>
+        </div>
+    );
+};
+
+export default Navbar;
+
+📌 Explanation (Line by Line):
+- `links` → Navbar links list।
+- `navbar-start` → left side content।
+- `dropdown` → small screen এ hamburger menu।
+- `lg:hidden` → large screen এ dropdown hide।
+- `navbar-center hidden lg:flex` → large screen এ horizontal menu।
+- `navbar-end` → right side button।
+- DaisyUI classes → responsive navbar তৈরি করছে।
+
+---
+
+4. Footer.jsx
+👉 Full Code:
+import React from 'react';
+
+const Footer = () => {
+    return (
+       <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+          <nav>
+            <h6 className="footer-title">Services</h6>
+            <a className="link link-hover">Branding</a>
+            <a className="link link-hover">Design</a>
+            <a className="link link-hover">Marketing</a>
+            <a className="link link-hover">Advertisement</a>
+          </nav>
+          <nav>
+            <h6 className="footer-title">Company</h6>
+            <a className="link link-hover">About us</a>
+            <a className="link link-hover">Contact</a>
+            <a className="link link-hover">Jobs</a>
+            <a className="link link-hover">Press kit</a>
+          </nav>
+          <nav>
+            <h6 className="footer-title">Legal</h6>
+            <a className="link link-hover">Terms of use</a>
+            <a className="link link-hover">Privacy policy</a>
+            <a className="link link-hover">Cookie policy</a>
+          </nav>
+       </footer>
+    );
+};
+
+export default Footer;
+
+📌 Explanation (Line by Line):
+- `footer sm:footer-horizontal` → small screen এ vertical, larger screen এ horizontal।
+- `footer-title` → section headings।
+- `link link-hover` → hover effect সহ links।
+- Result → responsive footer।
+
+---
+
+5. Home.jsx
+👉 Full Code:
+import React from 'react';
+
+const Home = () => {
+    return (
+        <div>
+            hello home
+        </div>
+    );
+};
+
+export default Home;
+
+📌 Explanation:
+- Simple Home component → default route এ render হবে।
+
+---
+
+6. ErrorPage.jsx
+👉 Full Code:
+import React from 'react';
+
+const ErrorPage = () => {
+    return (
+        <div>
+            <h1>page not found</h1>
+        </div>
+    );
+};
+
+export default ErrorPage;
+
+📌 Explanation:
+- ErrorPage → invalid URL এ দেখাবে।
+
+---
+
+7. Root.jsx
+👉 Full Code:
+import React from 'react';
+import Navbar from '../../Navbar/Navbar';
+import { Outlet } from 'react-router';
+import Footer from '../../Footer/Footer';
+
+const Root = () => {
+    return (
+        <div>
+            <Navbar></Navbar>
+            <Outlet></Outlet>
+            <Footer></Footer>
+        </div>
+    );
+};
+
+export default Root;
+
+📌 Explanation (Line by Line):
+- `Navbar` → top navigation।
+- `Outlet` → nested route render করবে।
+- `Footer` → bottom section।
+- Result → সব page এ common layout থাকবে।
+
+---
+
+✅ Output (Example)
+- Navbar → responsive, DaisyUI styled।
+- Footer → responsive, DaisyUI styled।
+- Home → default route।
+- ErrorPage → invalid URL এ দেখাবে।
+- Root → layout wrapper with Navbar + Outlet + Footer।
+
+---
+
+✅ Advantages
+- Router configuration → আলাদা file এ clean structure।
+- Navbar/Footer → reusable components।
+- DaisyUI → ready-made responsive UI।
+- Root → consistent layout across pages।
+- ErrorPage → user-friendly error handling।
+
+---
+
+📌 Summary
+- Router setup → Routes.jsx এ রাখা হয়েছে।
+- Navbar → DaisyUI responsive navbar।
+- Footer → DaisyUI responsive footer।
+- Root → Navbar, Outlet, Footer একসাথে।
+- Result → Book Vibe project এ modular, reusable, responsive layout।
+
+
