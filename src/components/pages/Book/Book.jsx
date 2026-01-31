@@ -7,11 +7,12 @@ import { FaStarHalfAlt } from 'react-icons/fa';
 const Book = ({singleBook}) => {
     console.log(singleBook);
 
+    
     //distaring
     const {bookName, author, image, category,rating} = singleBook;
 
     return (
-       <div className="card bg-base-100 w-96 shadow-sm border">
+       <div className="card bg-base-100 w-96 shadow-sm border p-3">
   <figure className='p-3 bg-gray-100 w-2/3 mx-auto'>
     <img 
         className='h-[166px]'
