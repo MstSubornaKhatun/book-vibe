@@ -6,11 +6,11 @@ import { FaStarHalfAlt } from 'react-icons/fa';
 import { Link } from 'react-router';
 
 const Book = ({singleBook}) => {
-    console.log(singleBook);
+    // console.log(singleBook);
 
     
-    //distaring
-    const {bookName, author, bookId, image, category,rating, tags, yearOfPublishing} = singleBook;
+      // destructuring
+    const {bookName, author, bookId, image, category,rating, tags, yearOfPublishing} = singleBook || {};
 
     return (
 <Link to={`/bookDetails/${bookId}`}>

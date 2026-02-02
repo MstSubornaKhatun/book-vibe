@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { addToStoredDB } from '../../utility/addToDB';
 
 const BookDetails = () => {
     // const id = useParams();
@@ -14,16 +15,26 @@ const BookDetails = () => {
     console.log(singleBook)
     console.log(typeof id, data);
 
-    const {bookName, image} = singleBook; 
+    const {bookName, image} = singleBook || {}; 
 
 
+    const handleMarkRead = id => {
+        //  Store with Id
+        // where to store
+        // array or collection
+        // if book already exist  the show a  alart
+        //  if book not exist then push in the collection or array
+
+
+        addToStoredDB(id)
+    }
 
     return (
         <div>
             <div className='w-2/3 mx-auto'>
                 <img className='w-48' src={image} alt="" />
                 <h1>{bookName}</h1>
-                <button className='btn btn-outline'>Read</button>
+                <button onClick={()=>handleMarkRead(id)} className='btn btn-outline'>Read</button>
                 <button className='btn btn-primary'>Wishlist</button>
 
             </div>
